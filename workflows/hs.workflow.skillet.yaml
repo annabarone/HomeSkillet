@@ -58,17 +58,6 @@ variables:
       - key: Configure basic gateway security policies
         value: load_security_policies
 
-  - name: HS_NETWORK_OPTION
-    description: Choose network config (vwire, layer3, layer3 w/ layer 2 interfaces)
-    default: 'layer3'
-    type_hint: dropdown
-    dd_list:
-      - key: 'vwire'
-        value: 'VWIRE'
-      - key: 'layer3'
-        value: 'LAYER3'
-      - key: 'layer3 w/ layer2 ints'
-        value: 'LAYER3_LAYER2'
 
 snippets:
   - name: import_empty_config_ab8f807b-6c2d-4e0a-b302-88d225072b58
@@ -99,14 +88,8 @@ snippets:
   - name: get_interface_lists_812E106E-EF84-48CC-A2CB-96F9D7DA7296
     when: "'load_hs_network' in subskillet_execution_options"
 
-  - name: panos_network_snippets_vwire
-    when: "'load_hs_network' in subskillet_execution_options and HS_NETWORK_OPTION == 'VWIRE'"
-
-  - name: hs_network_layer3
-    when: "'load_hs_network' in subskillet_execution_options and HS_NETWORK_OPTION == 'LAYER3'"
-
-  - name: hs_network_hybridL2L3
-    when: "'load_hs_network' in subskillet_execution_options and HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
+  - name: hs_playlist_skillet
+    when: "'load_hs_network' in subskillet_execution_options"
 
   - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
     when: "'load_security_policies' in subskillet_execution_options"

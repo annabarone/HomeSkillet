@@ -1,0 +1,119 @@
+# HomeSkillet Workflow Skillet
+
+name: hs_playlist_skillet
+label: HomeSkillet Playlist
+description: |
+  This workflow steps through an IronSkillet configuration, a content
+  update, and HomeSkillet deployment configuration.
+
+type: workflow
+
+labels:
+  collection:
+    - lib
+
+variables:
+  - name: TARGET_IP
+    description: Next-Gen Firewall IP or Hostname
+    default: 192.168.55.10
+    type_hint: fqdn_or_ip
+
+  - name: TARGET_USERNAME
+    description: Next-Gen Firewall Username
+    default: admin
+    type_hint: text
+
+  - name: TARGET_PASSWORD
+    description: Next-Gen Firewall Password
+    default: admin
+    type_hint: password
+
+  - name: HS_NETWORK_OPTION
+    description: Choose network config (vwire, layer3, layer3 w/ layer 2 interfaces)
+    default: 'layer3'
+    type_hint: dropdown
+    dd_list:
+      - key: 'vwire'
+        value: 'VWIRE'
+      - key: 'layer3'
+        value: 'LAYER3'
+      - key: 'layer3 w/ layer2 ints'
+        value: 'LAYER3_LAYER2'
+
+snippets:
+
+  - name: get_interface_lists_812E106E-EF84-48CC-A2CB-96F9D7DA7296
+    when: "'load_hs_network' in subskillet_execution_options"
+
+  # VWire networking configuration snippets
+  - name: panos_network_snippets_vwire
+    include: panos_network_snippets_vwire
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'VWIRE'
+    when: "HS_NETWORK_OPTION == 'VWIRE'"
+
+  # Layer3 networking configuration snippets
+  - name: panos_network_snippets_layer3
+    include: panos_network_snippets_layer3
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3'
+    when: "HS_NETWORK_OPTION == 'LAYER3'"
+  - name: panos_network_snippets_dhcp_server_basic
+    include: panos_network_snippets_dhcp_server_basic
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3'
+    when: "HS_NETWORK_OPTION == 'LAYER3'"
+  - name: panos_network_snippets_nat_dipp
+    include: panos_network_snippets_nat_dipp
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3'
+    when: "HS_NETWORK_OPTION == 'LAYER3'"
+
+
+  # Hybrid L2 and L3 networking configuration snippets
+  - name: panos_network_snippets_layer3_with_layer2_interfaces
+    include: panos_network_snippets_layer3_with_layer2_interfaces
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3_LAYER2'
+    when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
+  - name: panos_network_snippets_dhcp_server_basic
+    include: panos_network_snippets_dhcp_server_basic
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3_LAYER2'
+    when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
+  - name: panos_network_snippets_nat_dipp
+    include: panos_network_snippets_nat_dipp
+    include_variables:
+      - name: all
+        toggle_hint:
+          source: HS_NETWORK_OPTION
+          value: 'LAYER3_LAYER2'
+    when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
+
+  - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
+    when: "'load_security_policies' in subskillet_execution_options"
+
+  - name: panos_policy_snippets_outbound_security_rules
+    when: "'load_security_policies' in subskillet_execution_options"
+
+
+
+

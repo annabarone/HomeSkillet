@@ -41,10 +41,6 @@ variables:
         value: 'LAYER3_LAYER2'
 
 snippets:
-#
-#  - name: get_interface_lists_812E106E-EF84-48CC-A2CB-96F9D7DA7296
-#    when: "'load_hs_network' in subskillet_execution_options"
-
   # VWire networking configuration snippets
   - name: panos_network_snippets_vwire
     include: panos_network_snippets_vwire
@@ -65,25 +61,6 @@ snippets:
           source: HS_NETWORK_OPTION
           value:
             - 'LAYER3'
-    when: "HS_NETWORK_OPTION == 'LAYER3'"
-  - name: panos_network_snippets_dhcp_server_basic
-    include: panos_network_snippets_dhcp_server_basic
-    include_variables:
-      - name: all
-        toggle_hint:
-          source: HS_NETWORK_OPTION
-          value:
-            - 'LAYER3'
-    when: "HS_NETWORK_OPTION == 'LAYER3'"
-  - name: panos_network_snippets_nat_dipp
-    include: panos_network_snippets_nat_dipp
-    include_variables:
-      - name: all
-        toggle_hint:
-          source: HS_NETWORK_OPTION
-          value:
-            - 'LAYER3'
-    when: "HS_NETWORK_OPTION == 'LAYER3'"
 
 
   # Hybrid L2 and L3 networking configuration snippets
@@ -96,6 +73,8 @@ snippets:
           value:
             - 'LAYER3_LAYER2'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
+
+  # DHCP Server and NAT configuration for L3 and hybrid config
   - name: panos_network_snippets_dhcp_server_basic
     include: panos_network_snippets_dhcp_server_basic
     include_variables:
@@ -104,6 +83,7 @@ snippets:
           source: HS_NETWORK_OPTION
           value:
             - 'LAYER3_LAYER2'
+            - 'LAYER3'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
   - name: panos_network_snippets_nat_dipp
     include: panos_network_snippets_nat_dipp
@@ -113,14 +93,10 @@ snippets:
           source: HS_NETWORK_OPTION
           value:
             - 'LAYER3_LAYER2'
+            - 'LAYER3'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
-#
-#  - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
-#    include: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
-#
-#  - name: panos_policy_snippets_outbound_security_rules
-#    include: panos_policy_snippets_outbound_security_rules
-#
+
+
 
 
 

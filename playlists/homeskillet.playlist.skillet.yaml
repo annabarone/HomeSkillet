@@ -107,13 +107,13 @@ snippets:
           source: HS_NETWORK_OPTION
           value: 'LAYER3_LAYER2'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
-
-  - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
-    include: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
-
-  - name: panos_policy_snippets_outbound_security_rules
-    include: panos_policy_snippets_outbound_security_rules
-
+#
+#  - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
+#    include: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
+#
+#  - name: panos_policy_snippets_outbound_security_rules
+#    include: panos_policy_snippets_outbound_security_rules
+#
 
 
 

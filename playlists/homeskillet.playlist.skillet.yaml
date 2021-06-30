@@ -52,7 +52,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'VWIRE'
+          value:
+            - 'VWIRE'
     when: "HS_NETWORK_OPTION == 'VWIRE'"
 
   # Layer3 networking configuration snippets
@@ -62,7 +63,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3'
+          value:
+            - 'LAYER3'
     when: "HS_NETWORK_OPTION == 'LAYER3'"
   - name: panos_network_snippets_dhcp_server_basic
     include: panos_network_snippets_dhcp_server_basic
@@ -70,7 +72,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3'
+          value:
+            - 'LAYER3'
     when: "HS_NETWORK_OPTION == 'LAYER3'"
   - name: panos_network_snippets_nat_dipp
     include: panos_network_snippets_nat_dipp
@@ -78,7 +81,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3'
+          value:
+            - 'LAYER3'
     when: "HS_NETWORK_OPTION == 'LAYER3'"
 
 
@@ -89,7 +93,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3_LAYER2'
+          value:
+            - 'LAYER3_LAYER2'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
   - name: panos_network_snippets_dhcp_server_basic
     include: panos_network_snippets_dhcp_server_basic
@@ -97,7 +102,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3_LAYER2'
+          value:
+            - 'LAYER3_LAYER2'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
   - name: panos_network_snippets_nat_dipp
     include: panos_network_snippets_nat_dipp
@@ -105,7 +111,8 @@ snippets:
       - name: all
         toggle_hint:
           source: HS_NETWORK_OPTION
-          value: 'LAYER3_LAYER2'
+          value:
+            - 'LAYER3_LAYER2'
     when: "HS_NETWORK_OPTION == 'LAYER3_LAYER2'"
 #
 #  - name: get_zone_names_812E106E-EF84-48CC-A2CB-96F9D7DA7296
